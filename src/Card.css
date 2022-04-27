@@ -1,0 +1,12 @@
+.card-header{    
+    font-size: 17px;
+    font-weight: bold;
+}
+#card{
+    background-color: #c154dc;
+}
+
+#card .card-title{
+  
+    font-size: 19px;
+    }

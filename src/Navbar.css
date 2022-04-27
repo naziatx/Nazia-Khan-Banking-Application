@@ -1,0 +1,31 @@
+
+
+.navbar-brand {
+  align-items: center;
+  font-family: "Ubuntu";
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.nav-item {
+  padding: 0 15px;
+}
+#navbarNav li a.active {
+  background-color: #7b1fa2 !important;
+}
+#navbarNav .nav-link {
+  color: white;
+    font-size: 1.2em;
+ /*  font-family: "Montserrat-Light"; */
+ font-family: "Ubunru";
+}
+
+/* hover effect */
+#navbarNav .nav-link:hover {
+  color: #d972f3;
+  font-style: italic;
+}
+
+.navbar-brand:hover {
+  color: #448aff !important           ;
+}

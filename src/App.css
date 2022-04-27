@@ -1,0 +1,17 @@
+html{
+    min-height: 100%;
+}
+body{
+    background-image:url("../public/Graphic.jpg");
+    margin: 0 auto;
+    
+    font-family: "Helvetica", "Arial", sans-serif;
+    
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100%;
+    width: 100%;
+  
+}
+
