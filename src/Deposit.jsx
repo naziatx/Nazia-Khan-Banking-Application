@@ -36,7 +36,7 @@ function Deposit() {
           <br />
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="inputDiposit">Diposit Amount</label>
+              <label htmlFor="inputDiposit">Deposit Amount</label>
               <input
                 type="text"
                 className="form-control"
