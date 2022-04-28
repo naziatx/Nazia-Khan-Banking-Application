@@ -27,7 +27,7 @@ function AllData() {
         />
         <Card
           txtcolor="black"
-          header="Name"
+          header="Password"
           body={ctx.users.map((user) => (
             <p>{user.password} </p>
           ))}
