@@ -1,0 +1,16 @@
+.login{
+    display: flex;
+justify-content:space-between;
+}
+.login p{
+    font-size: 2rem;
+    padding-left: 50px;
+    padding-bottom: 100px;
+    color: #c154dc;
+    margin-right: -90px;
+    margin-top:-50px
+}
+.userName{
+    font-family: "Ubuntu";
+    font-weight: 600;
+}

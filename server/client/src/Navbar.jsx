@@ -42,6 +42,17 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <Link
+                to="/login/"
+                className="nav-link"
+                data-toggle="tab"
+                data-placement="bottom"
+                title="Click Here to Login"
+              >
+                Login
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
                 to="/deposit/"
                 className="nav-link "
                 data-toggle="tab"
@@ -60,6 +71,17 @@ function Navbar() {
                 title="Click Here to Withdraw money from your account"
               >
                 Withdraw
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="/balance/"
+                className="nav-link"
+                data-toggle="tab"
+                data-placement="bottom"
+                title="Click Here to check your Account Balance"
+              >
+                Balance
               </Link>
             </li>
             <li className="nav-item">

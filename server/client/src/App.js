@@ -5,10 +5,11 @@ import Navbar from "./Navbar";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import CreateAccount from "./CreateAccount";
-/* import Login from "./Login"*/
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 import AllData from "./AllData";
+import Login from "./Login";
+import Balance from "./Balance";
 
 export const UserContext = React.createContext(null);
 
@@ -24,8 +25,10 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/CreateAccount/" element={<CreateAccount />} />
+              <Route path="/login/" element={<Login />} />
               <Route path="/deposit/" element={<Deposit />} />
               <Route path="/withdraw/" element={<Withdraw />} />
+              <Route path="/balance/" element={<Balance />} />
               <Route path="/alldata/" element={<AllData />} />
             </Routes>
           </div>
