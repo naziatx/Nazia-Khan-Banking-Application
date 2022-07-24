@@ -1,19 +1,35 @@
-import React, { useContext, useState } from "react";
-import { UserContext } from "./App";
-import Balance from "./Balance";
+import React, { useContext, useEffect, useState } from "react";
+import AuthContext from "./AuthContext";
 import Card from "./Card";
 import "./Withdraw.css";
 
 function Withdraw() {
-  const ctx = useContext(UserContext);
-  const [email, setEmail] = useState("");
+  const { user } = useContext(AuthContext);
+
   const [amount, setAmount] = useState("");
   const [show, setShow] = useState(true);
   const [status, setStatus] = useState("");
-  const [balance,setBalance] = useState('')
+  const [balance, setBalance] = useState("");
 
   let audio = new Audio("alert.wav");
+
+  useEffect(() => {
+    let email = user.email;
+    fetch(`/account/findOne/${email}`)
+      .then((response) => response.text())
+      .then((text) => {
+        try {
+          const data = JSON.parse(text);
+          setBalance(data.balance);
+          console.log("JSON:", data);
+        } catch (err) {
+          console.log(err);
+        }
+      });
+  });
+
   function handleSubmit(e) {
+    let email = user.email;
     e.preventDefault();
     if (isNaN(amount)) {
       audio.play();
@@ -21,15 +37,14 @@ function Withdraw() {
       setAmount("");
 
       <audio controls play></audio>;
-    } else if (amount > Balance) {
-      audio.play();
-
-      alert("Transaction Failed: You dont have sufficient balance");
-      setAmount("");
     } else if (amount <= 0) {
       audio.play();
 
       alert("Error: Negative number not allowed");
+      setAmount("");
+    } else if (amount > balance) {
+      audio.play();
+      alert("Transaction Failed: You dont have sufficient balance");
       setAmount("");
     } else {
       fetch(`/account/update/${email}/-${amount}`)
@@ -37,9 +52,6 @@ function Withdraw() {
         .then((text) => {
           try {
             const data = JSON.parse(text);
-            console.log(JSON.stringify(data.value));
-            setBalance(data.value.balance - parseInt(amount));
-
             if (JSON.stringify(data.value) !== "null") {
               setShow(false);
               console.log("JSON:", data);
@@ -65,19 +77,6 @@ function Withdraw() {
           <form onSubmit={handleSubmit}>
             {show ? (
               <>
-                <div className="form-group">
-                  <label htmlFor="email">Email address</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="email"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter email"
-                    value={email}
-                    onChange={(e) => setEmail(e.currentTarget.value)}
-                    required
-                  />
-                </div>
                 <div className="form-group">
                   <label htmlFor="inputWithdraw">Withdraw Amount</label>
                   <input
@@ -107,7 +106,6 @@ function Withdraw() {
                   onClick={() => {
                     setShow(true);
                     setStatus("");
-                    setEmail("");
                   }}
                 >
                   Withdraw Again

@@ -1,3 +1,4 @@
+require("dotenv").config();
 const MongoClient = require("mongodb").MongoClient;
 const url = process.env.ATLAS_URI;
 let db = null;
@@ -8,8 +9,6 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
   // connect to myproject database
   db = client.db("myproject");
 });
-
-
 
 // create user account
 function create(name, email, password) {

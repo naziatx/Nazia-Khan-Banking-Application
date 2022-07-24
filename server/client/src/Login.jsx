@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import AuthContext from "./AuthContext";
+import { useNavigate } from "react-router-dom";
+
 import "./Login.css";
 import Card from "./Card";
 function Login() {
+  const navigate = useNavigate();
+  const { setAuth, setUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(true);
   const [status, setStatus] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState("");
 
   function handleLogin(e) {
     e.preventDefault();
@@ -16,12 +19,14 @@ function Login() {
       .then((text) => {
         try {
           const data = JSON.parse(text);
+          let name = data.name;
+          setUser({ name, email });
+          setAuth(true);
 
-          setIsLoggedIn(true);
           setStatus("");
           setShow(false);
           console.log("JSON:", data);
-          setUserName(data.name);
+          navigate("/");
         } catch (err) {
           setStatus(text);
           console.log("err:", text);
@@ -29,8 +34,6 @@ function Login() {
       });
   }
   function clearForm() {
-    setUserName("");
-    setIsLoggedIn(false);
     setEmail("");
     setPassword("");
     setShow(true);
@@ -93,9 +96,6 @@ function Login() {
           </>
         }
       />
-      <p className="userName">Hello {isLoggedIn ? userName : "Guest"} </p>
-
-       
     </div>
   );
 }

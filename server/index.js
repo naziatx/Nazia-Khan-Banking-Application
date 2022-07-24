@@ -76,11 +76,11 @@ app.get("/account/all", function (req, res) {
   });
 });
 
-if(process.env.NODE_ENV =="production"){
-  app.use(express.static("client/build"))
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static("client/build"));
 }
 
-
 const PORT = process.env.PORT || 3080;
-app.listen(PORT, ()=>{console.log("Running on port: " + PORT);});
-
+app.listen(PORT, () => {
+  console.log("Running on port: " + PORT);
+});

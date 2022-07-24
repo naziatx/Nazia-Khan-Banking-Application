@@ -1,19 +1,34 @@
-import React, { useContext, useState } from "react";
-import { UserContext } from "./App";
-import Balance from "./Balance";
+import React, { useContext, useEffect, useState } from "react";
+import AuthContext from "./AuthContext";
 import Card from "./Card";
 import "./Deposit.css";
 
 function Deposit(props) {
-  const ctx = useContext(UserContext);
+  const { user } = useContext(AuthContext);
+
   const [show, setShow] = useState(true);
   const [status, setStatus] = useState("");
-  const [email, setEmail] = useState("");
   const [amount, setAmount] = useState("");
-  const [balance,setBalance] = useState("")
+  const [balance, setBalance] = useState("");
   let audio = new Audio("alert.wav");
 
+  useEffect(() => {
+    let email = user.email;
+    fetch(`/account/findOne/${email}`)
+      .then((response) => response.text())
+      .then((text) => {
+        try {
+          const data = JSON.parse(text);
+          setBalance(data.balance);
+          console.log("JSON:", data);
+        } catch (err) {
+          console.log(err);
+        }
+      });
+  });
+
   function handleSubmit(e) {
+    let email = user.email;
     e.preventDefault();
     if (isNaN(amount)) {
       audio.play();
@@ -29,12 +44,8 @@ function Deposit(props) {
         .then((text) => {
           try {
             const data = JSON.parse(text);
-            setBalance(data.value.balance + parseInt(amount));
-
-            console.log(JSON.stringify(data.value));
             if (JSON.stringify(data.value) !== "null") {
               setShow(false);
-
               console.log("JSON:", data);
               alert("Deposit of " + Number(amount) + " was Success");
             }
@@ -43,7 +54,7 @@ function Deposit(props) {
             console.log("err:", text);
           }
         });
-
+      setAmount("");
     }
   }
 
@@ -54,24 +65,10 @@ function Deposit(props) {
       status={status}
       body={
         <>
-          
           <br />
           <form onSubmit={handleSubmit}>
             {show ? (
               <div>
-                <div className="form-group">
-                  <label htmlFor="email">Email address</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="email"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter email"
-                    value={email}
-                    onChange={(e) => setEmail(e.currentTarget.value)}
-                    required
-                  />
-                </div>
                 <div className="form-group">
                   <label htmlFor="inputDiposit">Deposit Amount</label>
                   <input
@@ -93,17 +90,17 @@ function Deposit(props) {
               </div>
             ) : (
               <div>
-              <div className="balance"> <h5>Balance: </h5>
-                <p>{balance}</p></div>
-               
+                <div className="balance">
+                  {" "}
+                  <h5>Balance: </h5>
+                  <p>{balance}</p>
+                </div>
+
                 <button
                   className="btn btn-light"
                   onClick={() => {
                     setShow(true);
                     setStatus("");
-                    setEmail("");
-                    setAmount('');
-                    setBalance('')
                   }}
                 >
                   Deposit Again

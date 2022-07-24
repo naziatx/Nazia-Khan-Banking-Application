@@ -13,13 +13,6 @@ function Home() {
         body={<img src={process.env.PUBLIC_URL + "bank.png"} className="img-fluid" alt="bank-logo" />}
       />
     </div>
-    /*  <div className="card">
-      <img src={process.env.PUBLIC_URL + "bank.png"} className="card-img-top" alt="..." />
-      <div className="card-body">
-        <h5 className="card-title">Welcome to the bank</h5>
-        <p className="card-text">For all your Banking Needs</p>
-      </div>
-    </div> */
   );
 }
 

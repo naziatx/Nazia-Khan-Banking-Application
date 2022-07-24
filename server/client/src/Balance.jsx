@@ -1,18 +1,18 @@
 import React, { useContext, useState } from "react";
-import { UserContext } from "./App";
+import AuthContext from "./AuthContext";
 import "./Balance.css";
 import Card from "./Card";
 
 function Balance(props) {
-  const ctx = useContext(UserContext);
+  const { user } = useContext(AuthContext);
   const [balance, setBalance] = useState("");
   const [status, setStatus] = useState("");
   const [show, setShow] = useState(true);
-  const [email, setEmail] = useState("");
 
   function findBalance(e) {
-    e.preventDefault();
+    let email = user.email;
 
+    e.preventDefault();
     fetch(`/account/findOne/${email}`)
       .then((response) => response.text())
       .then((text) => {
@@ -33,27 +33,14 @@ function Balance(props) {
     <>
       <Card
         txtcolor="#212121"
-        header="Create Account"
+        header="Check Balance"
         status={status}
         body={
           <form onSubmit={findBalance}>
             {show ? (
               <div>
-                <div className="form-group">
-                  <label htmlFor="email">Email address</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="email"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter email"
-                    value={email}
-                    onChange={(e) => setEmail(e.currentTarget.value)}
-                    required
-                  />
-                </div>
-                <button type="submit" className="btn btn-light" disabled={!email}>
-                  Find Balance
+                <button type="submit" className="btn btn-light">
+                  Check Balance
                 </button>
               </div>
             ) : (
@@ -63,15 +50,13 @@ function Balance(props) {
                   <p>{balance}</p>
                 </div>
                 <button
-                  type="button"
+                  type="submit"
                   className="btn btn-light"
                   onClick={() => {
-                    setShow(true);
                     setStatus("");
-                    setEmail("");
                   }}
                 >
-                  Find Again
+                  Refresh Balance
                 </button>
               </div>
             )}

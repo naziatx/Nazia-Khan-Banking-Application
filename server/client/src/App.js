@@ -10,6 +10,7 @@ import Withdraw from "./Withdraw";
 import AllData from "./AllData";
 import Login from "./Login";
 import Balance from "./Balance";
+import Logout from "./Logout";
 
 export const UserContext = React.createContext(null);
 
@@ -30,6 +31,8 @@ function App() {
               <Route path="/withdraw/" element={<Withdraw />} />
               <Route path="/balance/" element={<Balance />} />
               <Route path="/alldata/" element={<AllData />} />
+              <Route path="/logout/" element={<Logout />} />
+
             </Routes>
           </div>
         </UserContext.Provider>

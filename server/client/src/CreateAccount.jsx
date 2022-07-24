@@ -1,16 +1,15 @@
 import React from "react";
-import { UserContext } from "./App";
+import { useNavigate } from "react-router-dom";
 import Card from "./Card";
-
 import "./CreateAccount.css";
 
 function CreateAccount() {
+  const navigate = useNavigate();
   const [show, setShow] = React.useState(true);
   const [status, setStatus] = React.useState("");
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const ctx = React.useContext(UserContext);
 
   function validate(field, label) {
     if (!field) {
@@ -23,18 +22,16 @@ function CreateAccount() {
 
   function handleCreate(e) {
     e.preventDefault();
-    console.log(name, email, password);
     if (!validate(name, "name")) return;
     if (!validate(email, "email")) return;
     if (!validate(password, "password")) return;
-    //ctx.users.push({ name, email, password, balance: 100 });
 
     const url = `/account/create/${name}/${email}/${password}`;
     (async () => {
       var res = await fetch(url);
       var data = await res.json();
       console.log(data);
-      alert("Account created successfully");
+      alert("Account created successfully. Please Login to continue");
       setShow(false);
     })();
   }

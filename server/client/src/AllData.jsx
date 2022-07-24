@@ -1,11 +1,8 @@
 import React from "react";
-import { UserContext } from "./App";
 import "./AllData.css";
 import Card from "./Card";
 
 function AllData() {
-  const ctx = React.useContext(UserContext);
-  const [data, setData] = React.useState("");
   const [nameData, setNameData] = React.useState("");
   const [emailData, setEmailData] = React.useState("");
   const [passwordData, setPasswordData] = React.useState("");
@@ -18,7 +15,6 @@ function AllData() {
         setEmailData(data.map((singleData) => <p>{singleData.email}</p>));
         setNameData(data.map((singleData) => <p>{singleData.name}</p>));
         setPasswordData(data.map((singleData) => <p>{singleData.password}</p>));
-        setData(data);
       });
   }, []);
 
