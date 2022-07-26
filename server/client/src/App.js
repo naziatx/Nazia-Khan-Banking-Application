@@ -11,6 +11,7 @@ import AllData from "./AllData";
 import Login from "./Login";
 import Balance from "./Balance";
 import Logout from "./Logout";
+import Payment from "./Payment";
 
 export const UserContext = React.createContext(null);
 
@@ -31,6 +32,8 @@ function App() {
               <Route path="/withdraw/" element={<Withdraw />} />
               <Route path="/balance/" element={<Balance />} />
               <Route path="/alldata/" element={<AllData />} />
+              <Route path="/payment/" element={<Payment />} />
+
               <Route path="/logout/" element={<Logout />} />
 
             </Routes>

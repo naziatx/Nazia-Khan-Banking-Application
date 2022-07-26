@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AllData.css";
 import Card from "./Card";
 
 function AllData() {
-  const [nameData, setNameData] = React.useState("");
-  const [emailData, setEmailData] = React.useState("");
-  const [passwordData, setPasswordData] = React.useState("");
+  const [nameData, setNameData] = useState("");
+  const [emailData, setEmailData] = useState("");
+  const [passwordData, setPasswordData] = useState("");
+  const [accountData, setAccountData] = useState();
 
   React.useEffect(() => {
     // fetch all accounts from API
@@ -15,6 +16,7 @@ function AllData() {
         setEmailData(data.map((singleData) => <p>{singleData.email}</p>));
         setNameData(data.map((singleData) => <p>{singleData.name}</p>));
         setPasswordData(data.map((singleData) => <p>{singleData.password}</p>));
+        setAccountData(data.map((singleData) => <p>{singleData.account}</p>));
       });
   }, []);
 
@@ -26,9 +28,8 @@ function AllData() {
         <Card txtcolor="black" header="Name" body={nameData} />
         <Card txtcolor="black" header="Email" body={emailData} />
         <Card txtcolor="black" header="Password" body={passwordData} />
+        <Card txtcolor="black" header="AccountType" body={accountData} />
       </div>
-
-      {/*  ctx.users.map(createCard) */}
     </>
   );
 }

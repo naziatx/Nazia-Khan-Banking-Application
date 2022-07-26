@@ -79,6 +79,17 @@ function Navbar() {
                 </li>
                 <li className="nav-item">
                   <Link
+                    to="/payment/"
+                    className="nav-link"
+                    data-toggle="tab"
+                    data-placement="bottom"
+                    title="Click Here to Transfer Money"
+                  >
+                    Payment Transfer
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
                     to="/logout/"
                     className="nav-link"
                     data-toggle="tab"

@@ -1,15 +1,14 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import Card from "./Card";
 import "./CreateAccount.css";
 
 function CreateAccount() {
-  const navigate = useNavigate();
-  const [show, setShow] = React.useState(true);
-  const [status, setStatus] = React.useState("");
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [show, setShow] = useState(true);
+  const [status, setStatus] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [account, setAccount] = useState("");
 
   function validate(field, label) {
     if (!field) {
@@ -25,8 +24,7 @@ function CreateAccount() {
     if (!validate(name, "name")) return;
     if (!validate(email, "email")) return;
     if (!validate(password, "password")) return;
-
-    const url = `/account/create/${name}/${email}/${password}`;
+    const url = `/account/create/${name}/${email}/${password}/${account}`;
     (async () => {
       var res = await fetch(url);
       var data = await res.json();
@@ -95,8 +93,43 @@ function CreateAccount() {
                       minLength="8"
                       required
                     />
-                  </div>{" "}
-                  <button type="submit" className="btn btn-light" disabled={!(name || email || password)}>
+                  </div>
+                  <div className="form-group">
+                    <p>Choose Account Type</p>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="accountType"
+                        id="checkingAccount"
+                        value="checkingAccount"
+                        onChange={(e) => {
+                          setAccount(e.currentTarget.value);
+                        }}
+                        required
+                      />
+                      <label className="form-check-label" htmlFor="checkingAccount">
+                        Checking Account
+                      </label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="accountType"
+                        id="savingAccount"
+                        value="savingAccount"
+                        onChange={(e) => {
+                          setAccount(e.currentTarget.value);
+                        }}
+                      />
+                      <label className="form-check-label" htmlFor="savingAccount">
+                        Saving Account
+                      </label>
+                    </div>
+                  </div>
+
+                  <button type="submit" className="btn btn-light" disabled={!(name || email || password || account)}>
                     Create Account
                   </button>
                 </div>

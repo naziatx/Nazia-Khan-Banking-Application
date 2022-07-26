@@ -1,7 +1,7 @@
 #emailHelp{
     color: #BDBDBD !important;
 }
-
-/* .btn-light:hover{
-    background-color: darkcyan !important;
-} */
+.form-group p{
+    font-size: 1.1rem;
+    margin-bottom: 0.7rem;
+}
