@@ -42,7 +42,7 @@ app.get("/account/login/:email/:password", function (req, res) {
       const userPassword = user[0].password;
       bcrypt.compare(loginPassword, user[0].password, function (err, result) {
         if (result === true) {
-          res.send(user);
+          res.send(user[0]);
         }else {
           res.send("Wrong password entered"+err);
         }

@@ -5,7 +5,7 @@ import Card from "./Card";
 function AllData() {
   const [nameData, setNameData] = useState("");
   const [emailData, setEmailData] = useState("");
-  const [passwordData, setPasswordData] = useState("");
+  const [balanceData, setBalanceData] = useState("");
   const [accountData, setAccountData] = useState();
 
   React.useEffect(() => {
@@ -15,7 +15,7 @@ function AllData() {
       .then((data) => {
         setEmailData(data.map((singleData) => <p>{singleData.email}</p>));
         setNameData(data.map((singleData) => <p>{singleData.name}</p>));
-        setPasswordData(data.map((singleData) => <p>{singleData.password}</p>));
+        setBalanceData(data.map((singleData) => <p>{singleData.balance}</p>));
         setAccountData(data.map((singleData) => <p>{singleData.account}</p>));
       });
   }, []);
@@ -27,8 +27,9 @@ function AllData() {
       <div className="card-group">
         <Card txtcolor="black" header="Name" body={nameData} />
         <Card txtcolor="black" header="Email" body={emailData} />
-        <Card txtcolor="black" header="Password" body={passwordData} />
         <Card txtcolor="black" header="AccountType" body={accountData} />
+        <Card txtcolor="black" header="Balance" body={balanceData} />
+
       </div>
     </>
   );
