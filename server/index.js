@@ -3,6 +3,9 @@ var app = express();
 var cors = require("cors");
 var dal = require("./dal.js");
 const e = require("express");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+
 
 // used to serve static files from public directory
 app.use(express.static("public"));
@@ -18,9 +21,13 @@ app.get("/account/create/:name/:email/:password/:account", function (req, res) {
       res.send("User already in exists");
     } else {
       // else create user
-      dal.create(req.params.name, req.params.email, req.params.password, req.params.account).then((user) => {
-        console.log(user);
-        res.send(user);
+      const createPassword = req.params.password;
+      bcrypt.hash(createPassword, saltRounds, function (err, hash) {
+        // Store hash in your password DB.
+        dal.create(req.params.name, req.params.email, hash, req.params.account).then((user) => {
+          console.log(user);
+          res.send(user);
+        });
       });
     }
   });
@@ -31,11 +38,15 @@ app.get("/account/login/:email/:password", function (req, res) {
   dal.find(req.params.email).then((user) => {
     // if user exists, check password
     if (user.length > 0) {
-      if (user[0].password === req.params.password) {
-        res.send(user[0]);
-      } else {
-        res.send("Login failed: wrong password");
-      }
+      let loginPassword = req.params.password;
+      const userPassword = user[0].password;
+      bcrypt.compare(loginPassword, user[0].password, function (err, result) {
+        if (result === true) {
+          res.send(user);
+        }else {
+          res.send("Wrong password entered"+err);
+        }
+      });
     } else {
       res.send("Login failed: user not found");
     }
